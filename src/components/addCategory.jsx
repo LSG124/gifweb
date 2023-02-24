@@ -1,24 +1,26 @@
 import { useState } from "react"
 
-export const AddCategory = () => {
+export const AddCategory = ({onCategories}) => {
   const [inputBrowse, setinputBrowse] = useState('')
 
   const onInputBrowse = ({target}) => {
-    console.log(target.value);
     setinputBrowse(target.value);
   }
 
-  const onSubmitInfo = ({event}) => {
+  const onSubmitInfo = (event) => {
     event.preventDefault();
-    console.log(inputBrowse);
+    if(inputBrowse.trim().length <=1) return;
+    //onCategories(categories => [inputBrowse,...categories]);
+    onCategories(inputBrowse.trim());
+    setinputBrowse('');
   }
 
   return (
-    <form onSubmit={(event) => onSubmitInfo(event)}>
+    <form onSubmit={onSubmitInfo}>
       <input type="text"
       placeholder="Browse gifs" 
       value={inputBrowse}
-      onChange={onInputBrowse}/>
+      onChange={(onInputBrowse)}/>
     </form>
   )
 }

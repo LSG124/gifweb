@@ -5,17 +5,18 @@ export default function App() {
   const [categories, setcategories] = useState(['dragonball']);
   console.log(categories);
 
-  function agregar(){
-    var texto = document.getElementById("texto").value;
-    setcategories([...categories, texto]);
+  function agregar(texto){
+    //console.log(texto);
+    if(categories.includes(texto))return;
     setcategories([texto,...categories]);
+    //categories.push(texto);
   }
 
   return (
     <>
     <h1>Gif web app</h1>
     
-    <AddCategory/>
+    <AddCategory onCategories={agregar}/>
 
     <ol>
         {
@@ -25,8 +26,6 @@ export default function App() {
             }
         )}
     </ol>
-    <input type="text" id="texto" />
-    <button className="btnagregar" onClick={agregar}>Agregar botón</button>
     </>
   )
 }
